@@ -1,11 +1,13 @@
 package com.znlccy.concurrency.example;
 
+import com.znlccy.concurrency.annotation.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @Author: Administrator
@@ -15,7 +17,8 @@ import java.util.concurrent.Semaphore;
  */
 
 @Slf4j
-public class Concurrent {
+@ThreadSafe
+public class CountExampleTwo {
 
     /* 请求总数 */
     public static int clientTotal = 5000;
@@ -24,7 +27,7 @@ public class Concurrent {
     public static int threadTotal = 50;
 
     /* 计数 */
-    public static int count = 0;
+    public static AtomicInteger count = new AtomicInteger(0);
 
     public static void main(String[] args) throws Exception {
         ExecutorService exec = Executors.newCachedThreadPool();
@@ -48,6 +51,7 @@ public class Concurrent {
     }
 
     private static void add() {
-        count++;
+        count.incrementAndGet();
+        /*count.getAndIncrement();*/
     }
 }
