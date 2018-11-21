@@ -48,7 +48,7 @@ public class AtomicExampleTwo {
         }
         countDownLatch.await();
         exec.shutdown();
-        System.out.println("count:{}" + count);
+        log.info("count:{}", count);
     }
 
     private static void add() {
